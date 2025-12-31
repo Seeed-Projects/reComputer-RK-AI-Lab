@@ -79,6 +79,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Add click handlers for Help page
+    const helpLink = document.querySelector('.nav-link[data-page="help"]');
+    if (helpLink) {
+        helpLink.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Update active nav link
+            navLinks.forEach(navLink => {
+                navLink.classList.remove('active-page');
+            });
+            this.classList.add('active-page');
+
+            // Hide all submenus
+            document.querySelectorAll('.sub-menu').forEach(menu => {
+                menu.style.display = 'none';
+            });
+
+            // Update active page
+            pages.forEach(page => {
+                page.classList.remove('active');
+                if (page.id === 'help-page') {
+                    page.classList.add('active');
+                }
+            });
+        });
+    }
+
     // Chip folder selection
     const chipFolders = document.querySelectorAll('.chip-folder');
 
@@ -114,6 +141,77 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Function to load markdown content - update to handle help page
+    async function loadMarkdownContent(page, mdFile) {
+        let contentContainer;
+
+        // Determine the correct content container based on the page
+        switch(page) {
+            case 'cv':
+                contentContainer = document.getElementById('cv-content');
+                break;
+            case 'llm':
+                contentContainer = document.getElementById('llm-content');
+                break;
+            case 'vlm':
+                contentContainer = document.getElementById('vlm-content');
+                break;
+            case 'ui':
+                contentContainer = document.getElementById('ui-content');
+                break;
+            case 'help':
+                contentContainer = document.getElementById('help-content');
+                break;
+            default:
+                contentContainer = document.getElementById(`${page}-content`);
+        }
+
+        if (!contentContainer) return;
+
+        const cacheKey = `${currentChip}-${page}-${mdFile}`;
+
+        // Check if content is already loaded
+        if (markdownCache[cacheKey]) {
+            contentContainer.innerHTML = markdownCache[cacheKey];
+            return;
+        }
+
+        try {
+            // Show loading indicator
+            contentContainer.innerHTML = '<p>Loading content...</p>';
+
+            let response;
+            // For help page, content is not chip-specific
+            if (page === 'help') {
+                response = await fetch(`content/help/${mdFile}`);
+            } else {
+                // Fetch markdown file from the selected chip directory
+                response = await fetch(`content/${currentChip}/${page}/${mdFile}`);
+            }
+
+            if (!response.ok) {
+                throw new Error(`Failed to load content for ${page}/${mdFile}`);
+            }
+
+            const markdownText = await response.text();
+
+            // Convert markdown to HTML (simplified - in a real implementation you'd use a library like marked)
+            const htmlContent = convertMarkdownToHtml(markdownText);
+
+            // Cache the content
+            markdownCache[cacheKey] = htmlContent;
+
+            // Display the content
+            contentContainer.innerHTML = htmlContent;
+
+            // Scroll to the content
+            contentContainer.scrollIntoView({ behavior: 'smooth' });
+        } catch (error) {
+            console.error(`Error loading content for ${page}/${mdFile}:`, error);
+            contentContainer.innerHTML = `<p>Content for ${page}/${mdFile} is not available.</p>`;
+        }
+    }
+
     // Function to get static file list as fallback
     function getStaticFileList(page) {
         let mdFiles = [];
@@ -130,6 +228,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'ui':
                 mdFiles = ['index.md', 'ai-enhanced-interfaces.md', 'responsive-design.md', 'performance-optimization.md'];
+                break;
+            case 'help':
+                mdFiles = ['index.md', 'quick-start.md', 'demo1.md', 'demo2.md'];
                 break;
             default:
                 mdFiles = ['index.md'];

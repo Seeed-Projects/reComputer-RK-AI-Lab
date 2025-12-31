@@ -1,26 +1,22 @@
 {
   "cv": [
     "index.md",
-    "image-recognition.md",
-    "object-detection.md",
-    "scene-understanding.md"
+    "demo1.md",
+    "demo2.md"
   ],
   "llm": [
     "index.md",
-    "model-optimization.md",
-    "hardware-acceleration.md",
-    "edge-deployment.md"
+    "demo1.md",
+    "demo2.md"
   ],
   "vlm": [
     "index.md",
-    "multimodal-understanding.md",
-    "cross-modal-learning.md",
-    "efficient-architectures.md"
+    "demo1.md",
+    "demo2.md"
   ],
   "ui": [
     "index.md",
-    "ai-enhanced-interfaces.md",
-    "responsive-design.md",
-    "performance-optimization.md"
+    "demo1.md",
+    "demo2.md"
   ]
 }
