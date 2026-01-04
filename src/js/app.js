@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Current selected chip
-    let currentChip = 'rk3568'; // Default to rk3568
+    let currentChip = 'rk3576(3588)'; // Default to rk3576(3588)
 
     // Page navigation
     const navLinks = document.querySelectorAll('.nav-link');
@@ -114,13 +114,23 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
 
             const chipType = this.getAttribute('data-chip');
-            const targetPage = this.closest('.sub-menu').id.replace('-submenu', '');
+            let targetPage;
+            if (this.closest('.sub-menu')) {
+                targetPage = this.closest('.sub-menu').id.replace('-submenu', '');
+            } else {
+                // Handle the case where the folder is directly in the main menu
+                targetPage = this.closest('.nav-item').querySelector('.nav-link').getAttribute('data-page');
+            }
 
             // Update current chip
             currentChip = chipType;
 
             // Toggle submenu visibility for this chip
-            const chipSubmenu = document.getElementById(`${targetPage}-${chipType}-submenu`);
+            let chipSubmenuId = `${targetPage}-${chipType}-submenu`;
+            // Replace any special characters in the ID to make it valid
+            chipSubmenuId = chipSubmenuId.replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+            const chipSubmenu = document.getElementById(chipSubmenuId.replace(/\\/g, '')); // Simple approach for this case
+
             if (chipSubmenu) {
                 // Hide all other chip submenus in this page
                 document.querySelectorAll(`#${targetPage}-submenu .chip-submenu`).forEach(menu => {
@@ -231,6 +241,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'help':
                 mdFiles = ['index.md', 'quick-start.md', 'demo1.md', 'demo2.md'];
+                break;
+            case 'rk3576(3588)':  // Special case for chip-specific content
+                mdFiles = ['index.md', 'demo1.md', 'demo2.md'];
                 break;
             default:
                 mdFiles = ['index.md'];
