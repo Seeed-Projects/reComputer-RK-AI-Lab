@@ -4,7 +4,8 @@ node_modules/
 # Build outputs
 dist/
 build/
-public/
+public/*
+public/styles.css
 .nyc_output/
 coverage/
 
