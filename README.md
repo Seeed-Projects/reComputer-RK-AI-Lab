@@ -7,7 +7,7 @@
 
 <h3 align="center">
   <a href="https://seeed-projects.github.io/Rockchip-AI-Lab/">
-    Rockchip AI Lab
+    reComputer RK AI Lab
   </a>
 </h3>
 
