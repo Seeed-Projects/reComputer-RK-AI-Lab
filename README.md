@@ -37,13 +37,19 @@ Rockchip-AI-Lab/
 │   │   │   ├── llm/        # Large Language Model content
 │   │   │   ├── ui/         # User Interface content
 │   │   │   └── vlm/        # Visual Language Model content
-│   │   ├── rk3576(3588)/         # Content for RK3576/3588 chip
+│   │   ├── rk3576/         # Content for RK3576 chip
+│   │   │   ├── cv/
+│   │   │   ├── llm/
+│   │   │   ├── ui/
+│   │   │   └── vlm/
+│   │   ├── rk3588/         # Content for RK3588 chip
 │   │   │   ├── cv/
 │   │   │   ├── llm/
 │   │   │   ├── ui/
 │   │   │   └── vlm/
 │   │   ├── rk1820.json     # RK1820 content index configuration
-│   │   └── rk3576(3588).json     # RK3576/3588 content index configuration
+│   │   ├── rk3588.json     # RK3588 content index configuration
+│   │   ├── rk3576.json     # RK3576 content index configuration
 │   ├── img/                # Image assets
 │   ├── js/                 # JavaScript files
 │   │   └── app.js          # Main application script

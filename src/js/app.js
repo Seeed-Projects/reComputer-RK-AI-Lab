@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Current selected chip
-    let currentChip = 'rk3576(3588)'; // Default to rk3576(3588)
+    let currentChip = 'rk3576'; // Default to rk3576
 
     // Page navigation
     const navLinks = document.querySelectorAll('.nav-link');
@@ -242,7 +242,10 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'help':
                 mdFiles = ['index.md', 'quick-start.md', 'demo1.md', 'demo2.md'];
                 break;
-            case 'rk3576(3588)':  // Special case for chip-specific content
+            case 'rk3588':  // Special case for rk3588 content
+                mdFiles = ['index.md', 'demo1.md', 'demo2.md'];
+                break;
+            case 'rk3576':  // Special case for rk3576 content
                 mdFiles = ['index.md', 'demo1.md', 'demo2.md'];
                 break;
             default:
