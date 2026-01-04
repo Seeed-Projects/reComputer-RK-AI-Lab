@@ -12,7 +12,7 @@
     --text-secondary: #4a5568;
     --border-color: #e0e0e0;
     --hover-bg: #f1f8e9;
-    --chip-rk3576(3588): #76b900;
+    --chip-rk3588: #76b900;
     --chip-rk1820: #ffb74d;
 }
 
@@ -62,7 +62,12 @@ body {
     transform: translateX(3px);
 }
 
-.chip-folder[data-chip="rk3576(3588)"] {
+.chip-folder[data-chip="rk3588"] {
+    background: linear-gradient(to right, rgba(118, 185, 0, 0.15), transparent);
+    border-left: none; /* Remove the green border */
+}
+
+.chip-folder[data-chip="rk3576"] {
     background: linear-gradient(to right, rgba(118, 185, 0, 0.15), transparent);
     border-left: none; /* Remove the green border */
 }
@@ -77,7 +82,11 @@ body {
     background: linear-gradient(to right, rgba(118, 185, 0, 0.25), transparent) !important;
 }
 
-.chip-folder[data-chip="rk3576(3588)"]:hover {
+.chip-folder[data-chip="rk3588"]:hover {
+    background: linear-gradient(to right, rgba(118, 185, 0, 0.25), transparent);
+}
+
+.chip-folder[data-chip="rk3576"]:hover {
     background: linear-gradient(to right, rgba(118, 185, 0, 0.25), transparent);
 }
 
